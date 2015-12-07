@@ -24,6 +24,7 @@ library
                      Handler.Common
                      Handler.Fay
                      Handler.Home
+                     Handler.Log
                      Handler.About
                      Handler.Projects
 

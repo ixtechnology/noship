@@ -25,5 +25,5 @@ database:
   database: "_env:PGDATABASE:noship"
   poolsize: "_env:PGPOOLSIZE:10"
 
-copyright: Copyright Ix Technology
+copyright: Copyright 2015 Ix Technology
 #analytics: UA-YOURCODE
