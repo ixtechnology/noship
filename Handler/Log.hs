@@ -1,6 +1,7 @@
 module Handler.Log where
 
 import Import
+import Yesod.Form.Nic        (nicHtmlField)
 import Yesod.Form.Bootstrap3 (BootstrapFormLayout (..), renderBootstrap3,
                               withSmallInput)
 
@@ -13,8 +14,70 @@ import Yesod.Form.Bootstrap3 (BootstrapFormLayout (..), renderBootstrap3,
 -- inclined, or create a single monolithic file.
 getLogR :: Handler Html
 getLogR = do
-    defaultLayout $ do
-        setTitle "Ix Technology Log"
-        $(widgetFile "log")
+  muser <- maybeAuth
+  entries <- runDB $ selectList [] [Desc EntryPosted]
+  (entryWidget, enctype) <- generateFormPost entryForm
+  defaultLayout $ do
+            setTitleI MsgBlogArchiveTitle
+            $(widgetFile "fancylog")
+
+--getLogR :: Handler Html
+--getLogR = do
+--    defaultLayout $ do
+--        setTitle "Ix Technology Log"
+--        $(widgetFile "log")
+
+postLogR :: Handler Html
+postLogR = do
+  ((res, entryWidget), enctype) <- runFormPost entryForm
+  case res of
+    FormSuccess entry -> do
+             entryId <- runDB $ insert entry
+             setMessageI $ MsgEntryCreated $ entryTitle entry
+             redirect $ EntryR entryId
+    _ -> defaultLayout $ do
+             setTitleI MsgPleaseCorrectEntry
+             $(widgetFile "fancylogpost")
 
 navbar = $(widgetFile "navbar")
+
+entryForm :: Form Entry
+entryForm =renderDivs $ Entry
+            <$> areq textField (fieldSettingsLabel MsgNewEntryTitle) Nothing
+            <*> lift (liftIO getCurrentTime)
+            <*> areq nicHtmlField (fieldSettingsLabel MsgNewEntryContent) Nothing
+
+
+commentForm :: EntryId -> Form Comment
+commentForm entryId = renderDivs $ Comment
+                      <$> pure entryId
+                      <*> lift (liftIO getCurrentTime)
+                      <*> lift requireAuthId
+                      <*> areq textField (fieldSettingsLabel MsgCommentName) Nothing
+                      <*> areq textareaField (fieldSettingsLabel MsgCommentText) Nothing
+
+getEntryR :: EntryId -> Handler Html
+getEntryR entryId = do
+  (entry, comments) <- runDB $ do
+                         entry <- get404 entryId
+                         comments <- selectList [CommentEntry ==. entryId] [Asc CommentPosted]
+                         return (entry, map entityVal comments)
+  muser <- maybeAuth
+  (commentWidget, enctype) <-
+      generateFormPost (commentForm entryId)
+  defaultLayout $ do
+    setTitleI $ MsgEntryTitle $ entryTitle entry
+    $(widgetFile "entry")
+
+postEntryR :: EntryId -> Handler Html
+postEntryR entryId = do
+  ((res, commentWidget), enctype) <-
+      runFormPost (commentForm entryId)
+  case res of
+    FormSuccess comment -> do
+                       _ <- runDB $ insert comment
+                       setMessageI MsgCommentAdded
+                       redirect $ EntryR entryId
+    _ -> defaultLayout $ do
+                       setTitleI MsgPleaseCorrectComment
+                       $(widgetFile "entrypost")

@@ -1,8 +1,17 @@
 <header>
-  <nav>
-    <a href=@{HomeR}>
-      <img src=@{StaticR images_white_logo_png} alt="Logo" />
-    <a href=@{LogR}>Log
-    <a href="mailto:info@ixtech.net">Email
-    <a href="https://twitter.com/ix_technology">Twitter
-    <a href="https://github.com/ixtechnology">GitHub
+    <h1>
+        <img alt="Logo" height="50" width="50" src=@{StaticR images_white_logo_png}>
+        Ix Tech
+        <span .test>
+            nology
+    <nav>
+        <a href=@{HomeR}>
+            Home
+        <a href=@{LogR}>
+            Log
+        <a href="mailto:info@ixtech.net">
+            Email
+        <a href="https://twitter.com/ix_technology">
+            Twitter
+        <a href="https://github.com/ixtechnology">
+            GitHub

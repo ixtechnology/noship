@@ -1,11 +1,65 @@
-a {
-	border-bottom: solid 0.2ch transparent;
-	text-decoration: none;
+
+@media (max-width: 500px) {
+	header h1 span { display: none; }
+	header nav a { display: block; }
+	header nav a:hover { border-bottom: solid 0.2ch transparent; }
 }
 
-a:hover { border-bottom: solid 0.2ch; }
 
-article { margin: 5% auto 10% auto; }
+body {
+	font-family: helvetica, arial, sans-serif;
+	font-size: 1.25em;
+	line-height: 1.5;
+}
+
+header {
+	font-size: 1.5em;
+	text-align: center;
+}
+
+header h1 img {
+	background: red;
+	font-variant: small-caps;
+	height: 0.7ch;
+	padding: 0.175ch;
+	width: 0.7ch;
+}
+
+header nav { margin: 1% auto; }
+
+header a { margin: 1%; }
+
+a {
+	text-decoration: none;
+	border-bottom: solid 0.2ch transparent;
+	padding-bottom: 0.2ch;
+}
+
+a:hover {
+	border-bottom: solid 0.2ch;
+}
+
+main {
+	margin: 7.5vh auto;
+	max-width: 60ch;
+}
+
+main h1 {
+	border: solid 0.25ch;
+	display: block;
+	padding: 0.5ch 1ch;
+}
+
+main ul {
+	list-style-type: none;
+	margin: 0;
+}
+
+main ul li { margin: 0 5ch 0 0; }
+
+main ul li span:last-child  { float: right; }
+
+article { margin: 5vh auto 15vh auto; }
 
 article address:before { content: "By"; }
 
@@ -19,13 +73,6 @@ article address a { color: black; }
 
 article p:last-child:after { content: "∎"; }
 
-body {
-	font-family: "Source Sans Pro", Helvetica, Arial, sans;
-	font-size: 1em;
-	margin: auto;
-	max-width: 65ch;
-}
-
 code {
 	background: #e5e5e5;
 	border-radius: 15px;
@@ -38,90 +85,18 @@ em {
 	padding: 0.5%;
 }
 
+blockquote, q { quotes: "“" "”" "‘" "’"; }
+
+blockquote:before, q:before { content: open-quote; }
+
+blockquote:after, q:after { content: close-quote; }
+
 footer {
-	border-top: solid 0.5ch black;
-	margin-top: 25vh;
+	margin: 10% 0 3% 0;
 	text-align: center;
 }
 
 footer a {
 	color: black;
-	display: inline-block;
-	margin: 2ch;
+	margin: 1%;
 }
-
-h1, h2, h3, h4 { font-family: "Avenir", Helvetica, Arial, sans; }
-
-header { text-align: center; }
-
-nav {
-    position: relative
-}
-
-nav a {
-	font-family: "Avenir", Helvetica, Arial, sans;
-	display: inline-block;
-	font-size: 1.5em;
-       	margin: 0 3% 3% 3%;
-}
-
-header h1 {
-	font-family: "Univers Extended", Helvetica, Arial, sans;
-	font-size: 3.25em;
-	font-variant: small-caps;
-}
-
-nav a img {
-    background: red;
-    position: absolute;
-    width: 2em;
-    padding: 0.25ch;
-    top: 50%;
-    transform: translate(0,-50%);
-    float: left
-}
-
-ul { list-style-type: none; margin: 0; padding: 0; }
-
-ul li { margin: 1ch 5ch; }
-
-ul li span:last-child  { float: right; }
-
-main h1 {
-	border: solid 0.25ch;
-	display: inline-block;
-	padding: 0.5ch 1ch;
-}
-
-/* Fonts */
-
-@font-face {
-        font-family: "Avenir";
-        src: url("/static/fonts/avenir.eot");
-        src: url("/static/fonts/avenir.woff") format("woff"),
-		url("/static/fonts/avenir.ttf") format("truetype"),
-		url("/static/fonts/avenir.svg") format("svg");
-        font-weight: normal;
-        font-style: normal;
-}
-
-@font-face {
-        font-family: "Source Sans Pro";
-        src: url("/static/fonts/source-sans-pro.eot");
-        src: url("/static/fonts/source-sans-pro.woff") format("woff"),
-		url("/static/fonts/source-sans-pro.ttf") format("truetype"),
-		url("/static/fonts/source-sans-pro.svg") format("svg");
-        font-weight: normal;
-        font-style: normal;
-}
-
-@font-face {
-        font-family: "Univers Extended";
-        src: url("/static/fonts/univers-extended.eot");
-        src: url("/static/fonts/univers-extended.woff") format("woff"),
-		url("/static/fonts/univers-extended.ttf") format("truetype"),
-		url("/static/fonts/univers-extended.svg") format("svg");
-        font-weight: normal;
-        font-style: normal;
-ear
-
