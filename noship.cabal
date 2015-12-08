@@ -23,8 +23,6 @@ library
                      Handler.Common
                      Handler.Home
                      Handler.Log
-                     Handler.About
-                     Handler.Projects
 
     if flag(dev) || flag(library-only)
         cpp-options:   -DDEVELOPMENT

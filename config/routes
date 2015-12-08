@@ -8,5 +8,3 @@
 
 /log LogR GET POST
 /log/#EntryId EntryR GET POST
-/about AboutR GET
-/projects ProjectsR GET
