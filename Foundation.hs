@@ -8,7 +8,7 @@ import Yesod.Auth.Message          (AuthMessage (InvalidLogin))
 import qualified Yesod.Core.Unsafe as Unsafe
 import Yesod.Core.Types            (Logger)
 import Yesod.Default.Util          (addStaticContentExternal)
-import Yesod.Fay
+import Yesod.Form.Nic              (YesodNic)
 
 -- | The foundation datatype for your application. This can be a good place to
 -- keep settings and values requiring initialization before your application
@@ -20,11 +20,17 @@ data App = App
     , appConnPool          :: ConnectionPool -- ^ Database connection pool.
     , appHttpManager       :: Manager
     , appLogger            :: Logger
-    , appFayCommandHandler :: CommandHandler App
     }
 
 instance HasHttpManager App where
     getHttpManager = appHttpManager
+
+-- | List of blog admins
+admins :: [Text]
+admins = ["gavwhela@gmail.com"]
+
+isAdmin :: User -> Bool
+isAdmin = (flip elem $ admins) . userIdent
 
 -- This is where we define all of the routes in our application. For a full
 -- explanation of the syntax, please see:
@@ -38,6 +44,8 @@ instance HasHttpManager App where
 -- type Handler = HandlerT App IO
 -- type Widget = WidgetT App IO ()
 mkYesodData "App" $(parseRoutesFile "config/routes")
+
+mkMessage "App" "messages" "en"
 
 -- | A convenient synonym for creating forms.
 type Form x = Html -> MForm (HandlerT App IO) (FormResult x, Widget)
@@ -74,6 +82,18 @@ instance Yesod App where
     authRoute _ = Just $ AuthR LoginR
 
     -- Routes not requiring authentication.
+    isAuthorized LogR True = do
+                     mauth <- maybeAuth
+                     case mauth of
+                       Nothing -> return AuthenticationRequired
+                       Just (Entity _ user)
+                            | isAdmin user -> return Authorized
+                            | otherwise    -> unauthorizedI MsgNotAnAdmin
+    isAuthorized (EntryR _) True = do
+                     mauth <- maybeAuth
+                     case mauth of
+                       Nothing -> return AuthenticationRequired
+                       Just _ -> return Authorized
     isAuthorized (AuthR _) _ = return Authorized
     isAuthorized FaviconR _ = return Authorized
     isAuthorized RobotsR _ = return Authorized
@@ -108,15 +128,6 @@ instance Yesod App where
 
     makeLogger = return . appLogger
 
-instance YesodJquery App
-instance YesodFay App where
-
-    fayRoute = FaySiteR
-
-    yesodFayCommand render command = do
-        master <- getYesod
-        appFayCommandHandler master render command
-
 -- How to run database actions.
 instance YesodPersist App where
     type YesodPersistBackend App = SqlBackend
@@ -137,15 +148,25 @@ instance YesodAuth App where
     redirectToReferer _ = True
 
     authenticate creds = runDB $ do
-        x <- getBy $ UniqueUser $ credsIdent creds
-        return $ case x of
-            Just (Entity uid _) -> Authenticated uid
-            Nothing -> UserError InvalidLogin
+        let ident = credsIdent creds
+        x <- getBy $ UniqueUser ident
+        case x of
+          Just (Entity uid _) -> return $ Authenticated uid
+          Nothing -> do let user = User ident Nothing
+                        res <- insertBy user
+                        return $ Authenticated $ either entityKey id res
 
     -- You can add other plugins like BrowserID, email or OAuth here
     authPlugins _ = [authBrowserId def]
 
     authHttpManager = getHttpManager
+
+--    authenticate creds = do
+--      let ident = credsIdent creds
+--          user = User ident Nothing
+--      res <- runDB $ insertBy user
+--      return $ Authenticated $ either entityKey id res
+
 
 instance YesodAuthPersist App
 
@@ -153,6 +174,8 @@ instance YesodAuthPersist App
 -- achieve customized and internationalized form validation messages.
 instance RenderMessage App FormMessage where
     renderMessage _ _ = defaultFormMessage
+
+instance YesodNic App
 
 unsafeHandler :: App -> Handler a -> IO a
 unsafeHandler = Unsafe.fakeHandlerGetLogger appLogger

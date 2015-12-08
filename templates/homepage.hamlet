@@ -1,45 +1,72 @@
 ^{navbar}
 
 <main>
-  <h1>About
-  <p>
-    Ix Technology is a general cybernetics firm. In an age
-    of complex and dynamic networks, we specialize in
-    interaction. How will a customer actually use your website?
-    How can we most effectively organize machines to achieve
-    our aims? Our firm is founded on the idea that the future
-    belongs to the generalist. This principle has us going from
-    web development and marketing to research &amp;
-    engineering &mdash; cross-pollinating as we go.
-  <p>
-    Ix Technology is available for outside contracting. Your business
-    hires our expertise, and we'll build you a custom solution that
-    reduces overhead &amp; technical worries. Feel free to get in
-    touch with a member of our team by emailing us at
-    <a href="mailto:info@ixtech.net">info@ixtech.net
-  <br />
-  <h2>Our Team
-  <ul>
-    <li>
-      <span>B.J. Sumner
-      <span>Data Analyst
-    <li>
-      <span>Michael McConnell
-      <span>Software Developer
-    <li>
-      <span>James Torre
-      <span>Research Scientist
-    <li>
-      <span>Nathaniel Alcock
-      <span>Founder &amp; Technical Lead
-  <br />
-  <h2>Get Involved
-  <p>
-    Ix Technology is committed to Open Source. Check out our
-    ongoing projects on
-    <a href="https://github.com/ixtechnology">GitHub
-    You can also subscribe to ongoing development news by
-    subscribing to our development
-    <a href="mailto:dev@ixtech.net">mailing list
-    We keep a written record in our
-    <a href="https://ixtech.net/log.html">log
+    <h1>
+        About
+    <p>
+        Ix Technology is a general cybernetics firm. In an age
+        of complex and dynamic networks, we specialize in
+        interaction. How will a customer actually use your website?
+        How can we most effectively organize machines to achieve
+        our aims? Our firm is founded on the idea that the future
+        belongs to the generalist. This principle has us going from
+        web development and marketing to research &
+        engineering — cross-pollinating as we go.
+    <p>
+        Ix Technology is available for outside contracting. Your
+        business hires our expertise, and we'll build you a custom
+        solution that reduces overhead & technical worries. Feel
+        free to get in touch with a member of our team by emailing us
+        at 
+        <a href="mailto:info@ixtech.net">
+            info@ixtech.net
+        .
+    <h2>
+        Our Team
+    <p>
+        Ix Technology was founded in Bloomington, Indiana by
+
+        <a href="https://github.com/jpt4">
+            James Torre
+        and
+
+        <a href="https://github.com/nalck">
+            Nathaniel Alcock
+        .
+        James leads scientific research and Nathaniel coordinates
+        technical development. We have a growing number of
+        open-source contributors including
+
+        <a href="https://github.com/harporoeder">
+            Harpo Roeder
+        ,
+
+        <a href="https://github.com/gavwhela">
+            @gavwhela
+        ,
+
+        <a href="https://github.com/cafelumiere">
+            Michael McConnell
+        ,
+                        and 
+        <a href="https://github.com/torchhound">
+            Joseph E. S. Cieslik
+        .
+
+    <h2>
+        Get Involved
+    <p>
+        Ix Technology is committed to Open Source development
+                        and collegiality. Feel free to peruse our ongoing projects
+                        on 
+        <a href="https://github.com/ixtechnology">
+            GitHub
+        .
+        You can also join our discussions and get the latest
+        news by subscribing to our development 
+        <a href="mailto:dev@ixtech.net">
+            mailing list
+        . We keep a written record of goings-on in our 
+        <a href=@{LogR}>
+            Log
+        .

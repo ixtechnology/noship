@@ -28,7 +28,9 @@ $newline never
       <div id="main" role="main">
         ^{pageBody pc}
       <footer>
-        #{appCopyright $ appSettings master}
+        <a>Copyright 2015
+        .
+        <a>Ix Technology
 
     $maybe analytics <- appAnalytics $ appSettings master
       <script>

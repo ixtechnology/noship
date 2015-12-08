@@ -8,5 +8,14 @@ Email
     user UserId Maybe
     verkey Text Maybe
     UniqueEmail email
-
+Entry
+    title Text
+    posted UTCTime
+    content Html
+Comment
+    entry EntryId
+    posted UTCTime
+    user UserId
+    name Text
+    text Textarea
  -- By default this file is used in Model.hs (which is imported by Foundation.hs)
