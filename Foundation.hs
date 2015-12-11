@@ -25,9 +25,9 @@ data App = App
 instance HasHttpManager App where
     getHttpManager = appHttpManager
 
--- | List of blog admins
+-- | List of log admins
 admins :: [Text]
-admins = ["gavwhela@gmail.com", "james@ixtech.net"]
+admins = ["gavwhela@gmail.com", "james@ixtech.net", "nathaniel@ixtech.net"]
 
 isAdmin :: User -> Bool
 isAdmin = (flip elem $ admins) . userIdent

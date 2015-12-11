@@ -2,8 +2,6 @@ module Handler.Log where
 
 import Import
 import Yesod.Form.Nic        (nicHtmlField)
-import Yesod.Form.Bootstrap3 (BootstrapFormLayout (..), renderBootstrap3,
-                              withSmallInput)
 
 -- MAYBE BAD
 import Data.Maybe            (fromJust)
@@ -23,12 +21,6 @@ getLogR = do
   defaultLayout $ do
             setTitleI MsgBlogArchiveTitle
             $(widgetFile "fancylog")
-
---getLogR :: Handler Html
---getLogR = do
---    defaultLayout $ do
---        setTitle "Ix Technology Log"
---        $(widgetFile "log")
 
 postLogR :: Handler Html
 postLogR = do
