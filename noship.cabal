@@ -83,6 +83,7 @@ library
                  , containers
                  , vector
                  , time
+                 , word8
 
 executable         noship
     if flag(library-only)

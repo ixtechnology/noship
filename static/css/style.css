@@ -1,10 +1,11 @@
+/* ixtech.net/style.css - Default Style */
 
 @media (max-width: 500px) {
-	header h1 span { display: none; }
+	header h1 a span { display: none; }
 	header nav a { display: block; }
 	header nav a:hover { border-bottom: solid 0.2ch transparent; }
+	main { text-align: left; }
 }
-
 
 body {
 	font-family: helvetica, arial, sans-serif;
@@ -17,12 +18,17 @@ header {
 	text-align: center;
 }
 
+header h1 a {
+	color: black;
+	text-decoration: none;
+}
+
 header h1 img {
 	background: red;
 	font-variant: small-caps;
-	height: 0.7ch;
-	padding: 0.175ch;
-	width: 0.7ch;
+	height: 0.8ch;
+	padding: 0.2ch;
+	width: 0.8ch;
 }
 
 header nav { margin: 1% auto; }
@@ -41,7 +47,8 @@ a:hover {
 
 main {
 	margin: 7.5vh auto;
-	max-width: 60ch;
+	max-width: 55ch;
+	text-align: justify;
 }
 
 main h1 {
@@ -71,7 +78,7 @@ article address {
 
 article address a { color: black; }
 
-article p:last-child:after { content: "∎"; }
+article p:last-child:after { content: "□"; }
 
 code {
 	background: #e5e5e5;
@@ -85,18 +92,23 @@ em {
 	padding: 0.5%;
 }
 
-blockquote, q { quotes: "“" "”" "‘" "’"; }
+blockquote {
+	border-left: solid grey 0.25ch;
+	padding: 0.2ch;
+	text-indent: 1em;
+}
 
-blockquote:before, q:before { content: open-quote; }
+q { quotes: "“" "”" "‘" "’"; }
 
-blockquote:after, q:after { content: close-quote; }
+q:before { content: open-quote; }
+
+q:after { content: close-quote; }
 
 footer {
-	margin: 10% 0 3% 0;
+	padding: 1%;
 	text-align: center;
 }
 
 footer a {
 	color: black;
-	margin: 1%;
 }

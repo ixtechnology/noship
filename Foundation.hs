@@ -81,7 +81,6 @@ instance Yesod App where
     -- The page to be redirected to when authentication is required.
     authRoute _ = Just $ AuthR LoginR
 
-    -- Routes not requiring authentication.
     isAuthorized LogR True = do
                      mauth <- maybeAuth
                      case mauth of
@@ -94,6 +93,7 @@ instance Yesod App where
                      case mauth of
                        Nothing -> return AuthenticationRequired
                        Just _ -> return Authorized
+    -- Routes not requiring authentication.
     isAuthorized (AuthR _) _ = return Authorized
     isAuthorized FaviconR _ = return Authorized
     isAuthorized RobotsR _ = return Authorized

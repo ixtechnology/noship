@@ -28,6 +28,17 @@ import Network.Wai.Middleware.RequestLogger (Destination (Logger),
 import System.Log.FastLogger                (defaultBufSize, newStdoutLoggerSet,
                                              toLogStr)
 
+-- Custom middleware imports
+import qualified Data.ByteString as S
+import qualified Data.ByteString.Char8 as S8
+import qualified Data.Set as Set
+import Data.Word8                     (_semicolon)
+import Network.Wai.Middleware.Gzip    (gzip, GzipSettings, GzipFiles(..),
+                                       gzipFiles, gzipCheckMime)
+import Network.Wai.Middleware.Autohead       (autohead)
+import Network.Wai.Middleware.AcceptOverride (acceptOverride)
+import Network.Wai.Middleware.MethodOverride (methodOverride)
+
 -- Import all relevant handler modules here.
 -- Don't forget to add new modules to your cabal file!
 import Handler.Common
@@ -76,6 +87,19 @@ makeFoundation appSettings = do
     -- Return the foundation
     return $ mkFoundation pool
 
+tracep :: Show a => a -> IO a
+tracep a = do print a
+              return a
+
+customCheckMime :: S.ByteString -> Bool
+customCheckMime bs = S8.isPrefixOf "text/" bs || bs' `Set.member` toCompress
+  where
+    bs' = fst $ S.break (== _semicolon) bs
+    toCompress = Set.fromList [ "application/json"
+                              , "application/javascript"
+                              , "application/ecmascript"
+                              ]
+
 -- | Convert our foundation to a WAI Application by calling @toWaiAppPlain@ and
 -- applying some additional middlewares.
 makeApplication :: App -> IO Application
@@ -93,7 +117,13 @@ makeApplication foundation = do
 
     -- Create the WAI application and apply middlewares
     appPlain <- toWaiAppPlain foundation
-    return $ logWare $ defaultMiddlewaresNoLogging appPlain
+    -- Don't know if this is how they wanted me to do this
+    -- or if they forgot to export the constructor for GzipSettings
+    let gzipConf = (def :: GzipSettings) { gzipFiles = GzipCompress
+                                         , gzipCheckMime = customCheckMime }
+    let gzipWare = gzip gzipConf
+    let warez = acceptOverride . autohead . gzipWare . methodOverride
+    return $ logWare $ warez appPlain
 
 -- | Warp settings for the given foundation value.
 warpSettings :: App -> Settings
