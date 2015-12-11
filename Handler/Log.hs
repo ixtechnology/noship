@@ -5,6 +5,9 @@ import Yesod.Form.Nic        (nicHtmlField)
 import Yesod.Form.Bootstrap3 (BootstrapFormLayout (..), renderBootstrap3,
                               withSmallInput)
 
+-- MAYBE BAD
+import Data.Maybe            (fromJust)
+
 -- This is a handler function for the GET request method on the LogR
 -- resource pattern. All of your resource patterns are defined in
 -- config/routes
@@ -52,17 +55,17 @@ commentForm :: EntryId -> Form Comment
 commentForm entryId = renderDivs $ Comment
                       <$> pure entryId
                       <*> lift (liftIO getCurrentTime)
-                      <*> lift requireAuthId
+                      <*> lift (maybeAuthId >>= return . fromJust) -- ALSO MAYBE BAD
                       <*> areq textField (fieldSettingsLabel MsgCommentName) Nothing
                       <*> areq textareaField (fieldSettingsLabel MsgCommentText) Nothing
 
 getEntryR :: EntryId -> Handler Html
 getEntryR entryId = do
+  muser <- maybeAuth
   (entry, comments) <- runDB $ do
                          entry <- get404 entryId
                          comments <- selectList [CommentEntry ==. entryId] [Asc CommentPosted]
                          return (entry, map entityVal comments)
-  muser <- maybeAuth
   (commentWidget, enctype) <-
       generateFormPost (commentForm entryId)
   defaultLayout $ do
