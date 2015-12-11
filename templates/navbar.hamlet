@@ -4,6 +4,7 @@
         <a href=@{HomeR}>
             Ix Tech<span>nology</span>
     <nav>
+	<a href=@{HomeR}>
         <a href=@{LogR}>
             Log
         <a href="mailto:info@ixtech.net">
