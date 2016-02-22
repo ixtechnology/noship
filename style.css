@@ -1,5 +1,6 @@
 body {
   font-family: helvetica, arial, verdana, sans-serif;
+  font-size: 1.6rem;
 }
 
 a {
@@ -11,12 +12,12 @@ header {
   background: black url('redstar.png') no-repeat center;
   background-size: cover;
   border-bottom: 25px solid #616161;
+  font-size: 2.25rem;
   min-height: 100vh;
 }
 
 header h1 {
   color: #fafafa;
-  font-size: 5rem;
   line-height: 2;
   margin: 0;
   padding: 4%;
@@ -34,7 +35,6 @@ header h1 img {
 
 header p {
   color: #fafafa;
-  font-size: 2.25rem;
   margin: 5% auto;
   max-width: 40ch;
   padding-bottom: 4ch;
@@ -44,7 +44,6 @@ header p {
 }
 
 header nav {
-  font-size: 2rem;
   text-align: center;
 }
 
@@ -77,7 +76,6 @@ main a:hover {
 }
 
 main article {
-  font-size: 2rem;
   line-height: 1.5;
   margin: 5% auto 0 auto;
   max-width: 50ch;
@@ -86,7 +84,6 @@ main article {
 footer {
   background: #212121;
   padding: 2ch;
-  font-size: 1.5rem;
   text-align: center;
 }
 
