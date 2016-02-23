@@ -4,7 +4,6 @@ body {
 }
 
 a {
-  color: #304ffe;
   text-decoration: none;
 }
 
@@ -48,7 +47,6 @@ header nav {
 }
 
 header nav a {
-  background: #283593;
   background: #3c3a51;
   border-radius: 8px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12),
@@ -69,16 +67,26 @@ header nav a:hover {
 main {
   background: #fafafa;
   padding: 5%;
+  padding-bottom: 10%;
+}
+
+main a {
+  border-bottom: 0.2ch solid;
+  color: black;
 }
 
 main a:hover {
-  border-bottom: 0.2ch solid;
+  color: #304ffe;
 }
 
 main article {
   line-height: 1.5;
-  margin: 5% auto 0 auto;
-  max-width: 50ch;
+  margin: 0 auto;
+  max-width: 64ch;
+}
+
+main article h2 {
+  margin-top: 10%;
 }
 
 footer {
@@ -95,4 +103,3 @@ footer a {
 footer a:hover {
   color: #eee;
 }
-
