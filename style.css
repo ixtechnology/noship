@@ -7,6 +7,10 @@ a {
   text-decoration: none;
 }
 
+p {
+  line-height: 1.75;
+}
+
 header {
   background: black url('redstar.png') no-repeat center;
   background-size: cover;
@@ -53,13 +57,14 @@ header nav a {
               0 1px 2px rgba(0,0,0,0.24);
   color: #fafafa;
   display: inline-block;
+  line-height: 1;
   margin: 2ch;
-  padding: 0.5ch 1ch;
   min-width: 6ch;
+  padding: 1ch 1.5ch 1.3ch 1.5ch;
 }
 
 header nav a:hover {
-  background: #304ffe;
+  background: #3a3678;
   box-shadow: 0 3px 6px rgba(0,0,0,0.16),
               0 3px 6px rgba(0,0,0,0.23);
 }
@@ -76,7 +81,8 @@ main a {
 }
 
 main a:hover {
-  color: #304ffe;
+  color: #3f51b5;
+  color: #1a237e;
 }
 
 main article {
